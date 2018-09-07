@@ -5,10 +5,23 @@ class BinarySearchTree:
     self.right = None
 
   def depth_first_for_each(self, cb):
-    pass    
+    cb(self.value)
+    if self.left:
+      self.left.depth_first_for_each(cb)
+    if self.right:
+      self.right.depth_first_for_each(cb)
 
-  def breadth_first_for_each(self, cb):
-    pass
+  def breadth_first_for_each(self, cb, stack = []):
+    cb(self.value)
+    if self.left:
+      stack.insert(0, self.left)
+    if self.right:
+      stack.insert(0, self.right)
+    if not stack:
+      return None
+    item = stack.pop()
+    if item:
+      item.breadth_first_for_each(cb, stack)
 
   def insert(self, value):
     new_tree = BinarySearchTree(value)
